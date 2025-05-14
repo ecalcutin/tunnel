@@ -7,8 +7,8 @@
     "noUncheckedIndexedAccess": true,
 
     // Modules
-    "moduleResolution": "nodenext",
-    "module": "NodeNext",
+    "moduleResolution": "bundler",
+    "module": "Preserve",
     "resolveJsonModule": true,
     "esModuleInterop": true,
 
