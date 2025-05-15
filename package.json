@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsx watch src/index.ts",
+    "start:dev": "tsx watch src/index.ts",
     "start:debug": "tsx watch --inspect=0.0.0.0 src/index.ts",
     "build": "tsup --config build.config.ts",
     "lint": "eslint --ext .ts ./src",
@@ -30,11 +30,13 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.1.0",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.0",
     "@nestjs/platform-express": "^11.1.0",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
+    "@types/node": "^22.15.18",
     "eslint": "^9.26.0",
     "eslint-import-resolver-typescript": "^4.3.4",
     "eslint-plugin-import": "^2.31.0",
