@@ -7,15 +7,13 @@
     "noUncheckedIndexedAccess": true,
 
     // Modules
-    "moduleResolution": "bundler",
-    "module": "Preserve",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
 
     // Emit
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "build/",
+    "declaration": false,
+    "declarationMap": false,
     "skipLibCheck": true,
     "stripInternal": true,
 
@@ -23,17 +21,9 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
 
-    // Language and Environment
+    // Shared
+
     "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
-
-    // Paths
-    "rootDir": "./src",
-
-    // Decorators
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+    "jsx": "react-jsx"
+  }
 }

@@ -5,49 +5,26 @@ import importPlugin from 'eslint-plugin-import';
 
 export default defineConfig([
   // Global ignores
-  { ignores: ['dist/**', 'node_modules/**', 'eslint.config.mjs'] },
+  { ignores: ['build/**', 'node_modules/**'] },
 
   // Base configurations
   js.configs.recommended,
   ts.configs.recommended,
 
-  // TypeScript configuration - restrict to src folder only
-  {
-    files: ['src/**/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        project: './tsconfig.json',
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-
   // Import plugin configuration
   {
-    files: ['src/**/*.ts'],
     ...importPlugin.flatConfigs.recommended,
     settings: {
       'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-        },
-        node: {
-          extensions: ['.js', '.ts'],
-        },
+        typescript: true,
       },
     },
   },
 
   // Rule overrides
   {
-    files: ['src/**/*.ts'],
     rules: {
-      'import/no-unresolved': [
-        'error',
-        {
-          ignore: ['^eslint/', '^@eslint/', 'typescript-eslint'],
-        },
-      ],
+      'import/no-unresolved': ['error'],
       'import/order': [
         'error',
         {
@@ -64,7 +41,8 @@ export default defineConfig([
       ],
 
       // General rules
-      'no-console': 'warn',
+      'import/newline-after-import': ['error'],
+      'no-console': 'error',
     },
   },
 ]);
