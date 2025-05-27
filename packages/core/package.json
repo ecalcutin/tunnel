@@ -7,9 +7,9 @@
   "type": "commonjs",
   "description": "",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "start": "docker compose -f docker-compose.dev.yml up",
+    "start:debug": "tsx watch --inspect=0.0.0.0 --tsconfig tsconfig.dev.json src/index.ts",
     "build": "webpack",
-    "debug": "tsx watch --inspect=0.0.0.0 src/index.ts",
     "lint": "eslint ./src --fix"
   },
   "dependencies": {
