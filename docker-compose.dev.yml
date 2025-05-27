@@ -5,13 +5,13 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./src:/app/src
+      - ./packages:/app/packages
       - ./package.json:/app/package.json
       - ./tsconfig.json:/app/tsconfig.json
     ports:
       - "3000:3000"
       - "9229:9229"
-    command: npm run start:debug
+    command: npm run debug -w=packages/core
     environment:
       - NODE_ENV=development
     cap_add:

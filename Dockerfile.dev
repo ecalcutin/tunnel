@@ -3,8 +3,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y wireguard iproute2 iptables
 
-COPY package*.json ./
-COPY tsconfig.json ./
-RUN npm ci
-COPY src ./src
+COPY ./ ./
+RUN npm install
+
 EXPOSE 3000 9229

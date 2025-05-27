@@ -19,21 +19,26 @@
     "packages/web"
   ],
   "scripts": {
-    "start:dev": "tsx watch src/index.ts",
-    "start:debug": "tsx watch --inspect=0.0.0.0 src/index.ts",
-    "build": "tsup --config build.config.ts",
+    "dev": "concurrently \"npm run dev -w packages/core\"",
+    "build": "npm run build -w packages/web && npm run build -w packages/core",
     "lint": "npm run lint -w packages/core",
     "prepare": "husky"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
+    "esbuild-loader": "^4.3.0",
     "eslint": "^9.27.0",
     "eslint-import-resolver-typescript": "^4.4.1",
     "eslint-plugin-import": "^2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.0"
+    "typescript-eslint": "^8.33.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-merge": "^6.0.1"
   },
   "lint-staged": {
     "*.ts": [
