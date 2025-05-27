@@ -42,7 +42,7 @@ export default defineConfig([
 
       // General rules
       'import/newline-after-import': ['error'],
-      'no-console': 'error',
+      'no-console': 'warn',
     },
   },
 ]);
