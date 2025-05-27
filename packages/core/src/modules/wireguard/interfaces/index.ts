@@ -1,1 +1,4 @@
-export { type Peer } from './peer.interface';
+export {
+  type WireguardConfig,
+  type PeerConfig,
+} from './wireguard-config.interface';

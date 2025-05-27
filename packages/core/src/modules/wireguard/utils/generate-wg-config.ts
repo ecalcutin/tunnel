@@ -1,19 +1,21 @@
-import { type Peer } from '../interfaces';
+import { type WireguardConfig } from '../interfaces';
 
-export const generateServerConfig = (serverPeer: Peer) => {
+export const generateWireguardConfig = (config: WireguardConfig): string => {
   return `
     [Interface]
-    PrivateKey = ${serverPeer.privateKey}
-    Address = ${serverPeer.address}
-    ListenPort = ${serverPeer.listenPort}
+    PrivateKey = ${config.privateKey}
+    Address = ${config.address}
+    ListenPort = ${config.listenPort}
     PostUp = ${postUpCommand()}
     PostDown = ${postDownCommand()}
 
-    ${renderClientPeerFromTemplate(serverPeer.peers)}
+    ${renderClientPeerFromTemplate(config.peers)}
     `.trim();
 };
 
-const renderClientPeerFromTemplate = (peers: Peer['peers']): string => {
+const renderClientPeerFromTemplate = (
+  peers: WireguardConfig['peers'],
+): string => {
   return peers
     .map(peer => {
       return `
@@ -25,10 +27,10 @@ const renderClientPeerFromTemplate = (peers: Peer['peers']): string => {
     .join('\n\n');
 };
 
-export const postUpCommand = () => {
+const postUpCommand = () => {
   return `iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE`;
 };
 
-export const postDownCommand = () => {
+const postDownCommand = () => {
   return `iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE`;
 };
