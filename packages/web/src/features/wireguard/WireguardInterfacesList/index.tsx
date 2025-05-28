@@ -1,12 +1,15 @@
 import React, { Fragment, PropsWithChildren } from 'react';
 import { useGetWireguardInterfacesQuery } from '../api';
+import { WireguardInterfacesListView } from './WireguardInterfacesListView';
 
-type Props = {} & PropsWithChildren;
-
-export const WireguardInterfacesList: React.FC<Props> = props => {
+export const WireguardInterfacesList: React.FC = () => {
   const { data: interfaces = [] } = useGetWireguardInterfacesQuery();
 
   console.log(interfaces);
 
-  return <Fragment>{props.children}</Fragment>;
+  return (
+    <Fragment>
+      <WireguardInterfacesListView items={[]} />
+    </Fragment>
+  );
 };

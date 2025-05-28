@@ -1,3 +1,4 @@
+import { type Peer } from '@packages/shared';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const wireguardApi = createApi({
@@ -5,7 +6,7 @@ export const wireguardApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
   endpoints: builder => {
     return {
-      getWireguardInterfaces: builder.query<unknown, void>({
+      getWireguardInterfaces: builder.query<Peer[], void>({
         query: () => `/wireguard/interfaces`,
       }),
     };
