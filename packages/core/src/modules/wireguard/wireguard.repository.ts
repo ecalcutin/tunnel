@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-import { SimpleRepositoryService } from '../repository';
-
 import { PeerConfig } from './interfaces';
 
 type WGRepository = {
@@ -9,8 +7,16 @@ type WGRepository = {
 };
 
 @Injectable()
-export class WireguardRepository extends SimpleRepositoryService<WGRepository> {
-  constructor() {
-    super('wg-interfaces');
+export class WireguardRepository {
+  private storage: WGRepository = {
+    peers: [],
+  };
+
+  async update(data: WGRepository): Promise<void> {
+    this.storage = data;
+  }
+
+  async read(): Promise<WGRepository> {
+    return this.storage;
   }
 }

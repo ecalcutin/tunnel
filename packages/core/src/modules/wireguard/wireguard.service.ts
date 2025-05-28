@@ -27,10 +27,6 @@ export class WireguardService {
     this.wireguard.apply(config);
 
     this.repository.update({
-      privateKey: 'privateKey',
-      publicKey: 'publicKey',
-      address: '10.0.0.1/24',
-      listenPort: 51820,
       peers: [
         {
           publicKey: 'publicKey',

@@ -2,6 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  }
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "sourceRoot": "src/",
+    "rootDir": "./src",
+    "outDir": "build"
+  },
+  "include": ["src/"]
 }
