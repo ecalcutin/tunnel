@@ -24,7 +24,7 @@ export class Wireguard extends WireguardAbstract {
   }
 
   public down(): void {
-    execSync('wg-quick down wg0', { stdio: 'inherit' });
+    execSync('wg-quick down wg0 || true', { stdio: 'inherit' });
   }
 
   private write(config: string): void {

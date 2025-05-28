@@ -16,7 +16,8 @@
   "homepage": "https://github.com/ecalcutin/tunnel#readme",
   "workspaces": [
     "packages/core",
-    "packages/web"
+    "packages/web",
+    "packages/shared"
   ],
   "scripts": {
     "start": "concurrently \"npm run start -w=packages/core\" \"npm run start -w=packages/web\"",

@@ -1,6 +1,7 @@
 import path from 'node:path';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { Configuration } from 'webpack';
 import { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
@@ -44,6 +45,34 @@ const config: Configuration & DevServerConfiguration = {
         generator: {
           filename: 'assets/fonts/[name][ext]',
         },
+      },
+      {
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: [
+          {
+            loader: isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+      {
+        test: /\.module\.css$/,
+        use: [
+          {
+            loader: isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                namedExport: false,
+              },
+            },
+          },
+        ],
       },
     ],
   },

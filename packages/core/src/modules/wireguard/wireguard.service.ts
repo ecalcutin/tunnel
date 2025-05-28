@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { AppConfigService } from '../config';
 
+import { CreatePeerDto } from './dto';
 import { Wireguard } from './utils';
 import { generateWireguardConfig } from './utils/generate-wg-config';
 import { WireguardRepository } from './wireguard.repository';
@@ -22,7 +23,8 @@ export class WireguardService {
     return this.repository.read();
   }
 
-  public async createInterface() {
+  public async createInterface(peer: CreatePeerDto) {
+    void peer;
     const config = this.buildServerConfig();
     this.wireguard.apply(config);
 

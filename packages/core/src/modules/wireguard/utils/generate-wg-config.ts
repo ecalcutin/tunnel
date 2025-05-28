@@ -2,15 +2,14 @@ import { type WireguardConfig } from '../interfaces';
 
 export const generateWireguardConfig = (config: WireguardConfig): string => {
   return `
-    [Interface]
-    PrivateKey = ${config.privateKey}
-    Address = ${config.address}
-    ListenPort = ${config.listenPort}
-    PostUp = ${postUpCommand()}
-    PostDown = ${postDownCommand()}
+[Interface]
+PrivateKey = ${config.privateKey}
+Address = ${config.address}
+ListenPort = ${config.listenPort}
+PostUp = ${postUpCommand()}
+PostDown = ${postDownCommand()}
 
-    ${renderClientPeerFromTemplate(config.peers)}
-    `.trim();
+${renderClientPeerFromTemplate(config.peers)}`.trim();
 };
 
 const renderClientPeerFromTemplate = (
@@ -19,10 +18,9 @@ const renderClientPeerFromTemplate = (
   return peers
     .map(peer => {
       return `
-        [Peer]
-        PublicKey = ${peer.publicKey}
-        AllowedIPs = ${peer.allowedIPs}
-        `.trim();
+[Peer]
+PublicKey = ${peer.publicKey}
+AllowedIPs = ${peer.allowedIPs}`.trim();
     })
     .join('\n\n');
 };

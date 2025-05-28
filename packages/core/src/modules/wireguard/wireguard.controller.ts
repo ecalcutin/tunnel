@@ -1,5 +1,6 @@
-import { Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 
+import { CreatePeerDto } from './dto';
 import { WireguardService } from './wireguard.service';
 
 @Controller('/wireguard')
@@ -9,13 +10,13 @@ export class WireguardController {
     private readonly wireguardService: WireguardService,
   ) {}
 
-  @Get('/interfaces')
+  @Get('/peers')
   async readInterfaces() {
     return this.wireguardService.readInterfaces();
   }
 
-  @Post('/interfaces')
-  async createInterface() {
-    return this.wireguardService.createInterface();
+  @Post('/peers')
+  async createInterface(@Body() peer: CreatePeerDto) {
+    return this.wireguardService.createInterface(peer);
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { WireguardInterfacesListContainer } from './features/wireguard/WireguardInterfaces';
+import { WireguardInterfacesList } from './features/wireguard/WireguardInterfacesList';
 
 export const App: React.FC = () => {
   const [state, setState] = useState(0);
@@ -10,7 +10,7 @@ export const App: React.FC = () => {
     <div>
       <Provider store={store}>
         <h1>My App</h1>
-        <WireguardInterfacesListContainer />
+        <WireguardInterfacesList />
         <p>State is: {state}</p>
         <button onClick={() => setState(10)}>Click</button>
       </Provider>
