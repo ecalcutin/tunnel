@@ -12,11 +12,11 @@ export class WireguardController {
 
   @Get('/peers')
   async readInterfaces() {
-    return this.wireguardService.readInterfaces();
+    return this.wireguardService.read();
   }
 
   @Post('/peers')
   async createInterface(@Body() peer: CreatePeerDto) {
-    return this.wireguardService.createInterface(peer);
+    return this.wireguardService.create(peer);
   }
 }

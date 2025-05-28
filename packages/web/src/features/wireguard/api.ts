@@ -7,7 +7,7 @@ export const wireguardApi = createApi({
   endpoints: builder => {
     return {
       getWireguardInterfaces: builder.query<Peer[], void>({
-        query: () => `/wireguard/interfaces`,
+        query: () => `/wireguard/peers`,
       }),
     };
   },

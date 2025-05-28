@@ -6,7 +6,7 @@
       "type": "node",
       "request": "attach",
       "restart": true,
-      "localRoot": "${workspaceFolder}",
+      "localRoot": "${workspaceFolder}/packages/core",
       "remoteRoot": "/app",
       "skipFiles": ["<node_internals>/**"]
     }

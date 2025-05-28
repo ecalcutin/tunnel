@@ -1,4 +1,9 @@
 export interface Peer {
-  readonly publicKey: string;
-  readonly allowedIPs: string;
+  readonly id: string;
+  readonly title: string;
+  readonly config: {
+    readonly address: string;
+    readonly privateKey: string;
+    readonly publicKey: string;
+  };
 }

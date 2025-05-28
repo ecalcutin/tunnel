@@ -1,4 +1,7 @@
+import crypto from 'node:crypto';
+
 import { Inject, Injectable } from '@nestjs/common';
+import { type Peer } from '@packages/shared';
 
 import { AppConfigService } from '../config';
 
@@ -19,25 +22,8 @@ export class WireguardService {
     private readonly repository: WireguardRepository,
   ) {}
 
-  public async readInterfaces() {
+  public async read() {
     return this.repository.read();
-  }
-
-  public async createInterface(peer: CreatePeerDto) {
-    void peer;
-    const config = this.buildServerConfig();
-    this.wireguard.apply(config);
-
-    this.repository.update({
-      peers: [
-        {
-          publicKey: 'publicKey',
-          allowedIPs: '10.0.0.2/32',
-        },
-      ],
-    });
-
-    return config;
   }
 
   private buildServerConfig(): string {
@@ -55,5 +41,26 @@ export class WireguardService {
       ],
     });
     return serverConfig;
+  }
+
+  public async create(peer: CreatePeerDto): Promise<Peer> {
+    const id = crypto.randomUUID();
+    const title = peer.title;
+    const clientKeys = this.wireguard.generateKeyPair();
+    const clientIP = this.wireguard.allocate();
+
+    const newPeer: Peer = {
+      id,
+      title,
+      config: {
+        privateKey: clientKeys.privateKey,
+        publicKey: clientKeys.publicKey,
+        address: clientIP,
+      },
+    };
+
+    await this.repository.create(newPeer);
+
+    return newPeer;
   }
 }
