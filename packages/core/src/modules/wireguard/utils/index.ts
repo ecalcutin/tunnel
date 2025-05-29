@@ -1,1 +1,0 @@
-export { Wireguard } from './wg';

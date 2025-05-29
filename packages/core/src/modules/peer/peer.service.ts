@@ -21,13 +21,14 @@ export class PeerService {
   }
 
   async create(peer: CreatePeerDto) {
-    const wgConfig = await this.wireguardService.create();
-
-    const peerConfig: Omit<Peer, 'id'> = {
+    await this.peerRepository.create({
       title: peer.title,
-      config: wgConfig,
-    };
+      config: await this.wireguardService.generateClientConfig(),
+    });
 
-    return this.peerRepository.create(peerConfig);
+    const peers = await this.peerRepository.read();
+
+    const wgConf = await this.wireguardService.buildServerConfig(peers);
+    return wgConf;
   }
 }

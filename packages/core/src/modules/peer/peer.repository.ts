@@ -1,9 +1,13 @@
 import crypto from 'node:crypto';
 
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { type Peer } from '@packages/shared';
 
+import { WireguardService } from '../wireguard/wireguard.service';
+
 type PeerRepositoryStorage = {
+  serverPrivateKey: string;
+  serverPublicKey: string;
   peers: Peer[];
 };
 
@@ -11,8 +15,14 @@ type PeerRepositoryStorage = {
 export class PeerRepository {
   private readonly storage: PeerRepositoryStorage;
 
-  constructor() {
+  constructor(
+    @Inject(WireguardService)
+    private readonly wireguardService: WireguardService,
+  ) {
+    const serverKeys = this.wireguardService.generateKeyPair();
     this.storage = {
+      serverPublicKey: serverKeys.publicKey,
+      serverPrivateKey: serverKeys.privateKey,
       peers: [],
     };
   }
@@ -21,7 +31,7 @@ export class PeerRepository {
     return this.storage.peers;
   }
 
-  async create(peer: Omit<Peer, 'id'>): Promise<Peer> {
+  async create(peer: Omit<Peer, 'id'>) {
     const id = crypto.randomUUID();
 
     const _peer = {
