@@ -1,6 +1,8 @@
 version: '3'
 services:
   core:
+    depends_on:
+      - database
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -9,8 +11,8 @@ services:
       - ./package.json:/app/package.json
       - ./tsconfig.dev.json:/app/tsconfig.dev.json
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - '3000:3000'
+      - '9229:9229'
     command: npm run start:debug
     environment:
       - NODE_ENV=development
@@ -19,3 +21,15 @@ services:
       - SYS_MODULE
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
+
+  database:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=tunnel
+
+volumes:
+  mongodb_data:

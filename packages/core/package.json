@@ -16,8 +16,10 @@
     "@nestjs/common": "^11.1.2",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.2",
+    "@nestjs/mongoose": "^11.0.3",
     "@nestjs/platform-express": "^11.1.2",
-    "class-validator": "^0.14.2"
+    "class-validator": "^0.14.2",
+    "mongoose": "^8.15.1"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
