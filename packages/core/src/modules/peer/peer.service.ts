@@ -1,10 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { type Peer } from '@packages/shared';
 
 import { WireguardService } from '../wireguard/wireguard.service';
 
-import { CreatePeerDto } from './dto';
 import { PeerRepository } from './peer.repository';
+import { Peer } from './peer.schema';
 
 @Injectable()
 export class PeerService {
@@ -20,15 +19,8 @@ export class PeerService {
     return this.peerRepository.read();
   }
 
-  async create(peer: CreatePeerDto) {
-    await this.peerRepository.create({
-      title: peer.title,
-      config: await this.wireguardService.generateClientConfig(),
-    });
-
-    const peers = await this.peerRepository.read();
-
-    const wgConf = await this.wireguardService.buildServerConfig(peers);
-    return wgConf;
+  async create() {
+    const config = await this.wireguardService.generateClientConfig();
+    return this.peerRepository.create(config);
   }
 }

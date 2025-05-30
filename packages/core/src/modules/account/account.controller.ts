@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+} from '@nestjs/common';
 
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto';
@@ -17,5 +25,10 @@ export class AccountController {
   @Post('/')
   async create(@Body() account: CreateAccountDto) {
     return this.accountService.create(account);
+  }
+
+  @Delete('/:id')
+  async deleteById(@Param('id') id: string) {
+    return this.accountService.deleteById(id);
   }
 }

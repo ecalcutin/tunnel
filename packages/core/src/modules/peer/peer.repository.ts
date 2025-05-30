@@ -1,45 +1,14 @@
-import crypto from 'node:crypto';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
-import { Inject, Injectable } from '@nestjs/common';
-import { type Peer } from '@packages/shared';
+import { BaseRepository } from '../../repository';
 
-import { WireguardService } from '../wireguard/wireguard.service';
-
-type PeerRepositoryStorage = {
-  serverPrivateKey: string;
-  serverPublicKey: string;
-  peers: Peer[];
-};
+import { Peer } from './peer.schema';
 
 @Injectable()
-export class PeerRepository {
-  private readonly storage: PeerRepositoryStorage;
-
-  constructor(
-    @Inject(WireguardService)
-    private readonly wireguardService: WireguardService,
-  ) {
-    const serverKeys = this.wireguardService.generateKeyPair();
-    this.storage = {
-      serverPublicKey: serverKeys.publicKey,
-      serverPrivateKey: serverKeys.privateKey,
-      peers: [],
-    };
-  }
-
-  async read(): Promise<Peer[]> {
-    return this.storage.peers;
-  }
-
-  async create(peer: Omit<Peer, 'id'>) {
-    const id = crypto.randomUUID();
-
-    const _peer = {
-      id,
-      ...peer,
-    };
-
-    this.storage.peers.push(_peer);
-    return _peer;
+export class PeerRepository extends BaseRepository<Peer> {
+  constructor(@InjectModel(Peer.name) private readonly peerModel: Model<Peer>) {
+    super(peerModel);
   }
 }

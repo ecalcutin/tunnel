@@ -18,4 +18,8 @@ export class AccountService {
   async create(account: CreateAccountDto): Promise<Account> {
     return this.accountRepository.create(account);
   }
+
+  async deleteById(id: string): Promise<void> {
+    return this.accountRepository.deleteById(id);
+  }
 }
