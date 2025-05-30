@@ -9,4 +9,19 @@ Endpoint = <SERVER_PUBLIC_IP>:51820
 AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 25`;
 
-export { CLIENT_TEMPLATE };
+type ClientConfigOptions = {
+  readonly clientPrivateKey: string;
+  readonly serverPublicKey: string;
+  readonly serverIP: string;
+  readonly clientIP: string;
+};
+
+export const buildClientConfig = (options: ClientConfigOptions) => {
+  return CLIENT_TEMPLATE.replace(
+    '<CLIENT_PRIVATE_KEY>',
+    options.clientPrivateKey,
+  )
+    .replace('<CLIENT_IP>', options.clientIP)
+    .replace('<SERVER_PUBLIC_KEY>', options.serverPublicKey)
+    .replace('<SERVER_PUBLIC_IP>', options.serverIP);
+};

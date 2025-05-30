@@ -3,6 +3,7 @@ import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { AppConfigService } from '../config';
 
 import { IPAllocator, Wireguard } from './helpers';
+import { buildClientConfig } from './templates/client-template';
 import { buildServerConfig } from './templates/server-template';
 import { TunnelRepository } from './tunnel.repository';
 
@@ -27,40 +28,47 @@ export class TunnelService implements OnApplicationBootstrap {
   }
 
   public async create() {
-    const ip = this.ipAllocator.allocateIP();
+    const clientIP = this.ipAllocator.allocateIP();
     const keyPair = this.wireguard.generateKeyPair();
     await this.tunnelRepository.create({
-      ip,
+      clientIP,
       clientPrivateKey: keyPair.privateKey,
       clientPublicKey: keyPair.publicKey,
     });
+    const clientConfig = buildClientConfig({
+      clientIP,
+      clientPrivateKey: keyPair.privateKey,
+      serverIP: this.ipAllocator.first,
+      serverPublicKey: this.appConfigService.WIREGUARD.publicKey,
+    });
     await this.hydrate();
+    return clientConfig;
   }
 
   public read() {
     return this.tunnelRepository.read();
   }
 
-  public async deleteById(id: string) {
+  public async deleteById(id: string): Promise<void> {
     const tunnel = await this.tunnelRepository.deleteById(id);
-    this.ipAllocator.releaseIP(tunnel.ip);
-    return tunnel;
+    this.ipAllocator.releaseIP(tunnel.clientIP);
+    await this.hydrate();
   }
 
   private async initialize() {
     const tunnels = await this.tunnelRepository.read();
-    const ips = tunnels.map(tunnel => tunnel.ip);
+    const ips = tunnels.map(tunnel => tunnel.clientIP);
     this.ipAllocator.allocateIPs(ips);
   }
 
   private async hydrate(): Promise<void> {
     const tunnels = await this.tunnelRepository.read();
     const conf = buildServerConfig({
-      peers: tunnels.map(({ ip, clientPublicKey }) => ({
-        ip,
+      peers: tunnels.map(({ clientIP, clientPublicKey }) => ({
+        clientIP,
         clientPublicKey,
       })),
-      ip: this.ipAllocator.first,
+      serverIP: this.ipAllocator.first,
       serverPrivateKey: this.appConfigService.WIREGUARD.privateKey,
     });
     this.wireguard.apply(conf);

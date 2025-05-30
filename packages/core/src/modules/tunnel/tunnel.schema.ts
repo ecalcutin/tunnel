@@ -10,7 +10,7 @@ export class Tunnel {
     required: true,
     unique: true,
   })
-  readonly ip!: string;
+  readonly clientIP!: string;
 
   @Prop({
     type: String,

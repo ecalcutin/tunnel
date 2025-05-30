@@ -15,12 +15,12 @@ AllowedIPs = <CLIENT_IP>
 `;
 type PeerConfigOptions = {
   readonly clientPublicKey: string;
-  readonly ip: string;
+  readonly clientIP: string;
 };
 
 type ServerConfigOptions = {
   readonly serverPrivateKey: string;
-  readonly ip: string;
+  readonly serverIP: string;
   readonly peers: Array<PeerConfigOptions>;
 };
 
@@ -28,7 +28,7 @@ const buildPeerConfig = (options: PeerConfigOptions) => {
   return PEER_TEMPLATE.replace(
     '<CLIENT_PUBLIC_KEY>',
     options.clientPublicKey,
-  ).replace('<CLIENT_IP>', options.ip);
+  ).replace('<CLIENT_IP>', options.clientIP);
 };
 
 export const buildServerConfig = (options: ServerConfigOptions): string => {
@@ -36,7 +36,7 @@ export const buildServerConfig = (options: ServerConfigOptions): string => {
     '<SERVER_PRIVATE_KEY>',
     options.serverPrivateKey,
   )
-    .replace('<SERVER_IP>', options.ip)
+    .replace('<SERVER_IP>', options.serverIP)
     .replace(
       '<Peers>',
       options.peers.map(peer => buildPeerConfig(peer)).join('\n'),

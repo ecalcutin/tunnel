@@ -19,7 +19,7 @@ export class AccountService {
     return this.accountRepository.create(account);
   }
 
-  async deleteById(id: string): Promise<void> {
+  async deleteById(id: string): Promise<Account> {
     return this.accountRepository.deleteById(id);
   }
 }
