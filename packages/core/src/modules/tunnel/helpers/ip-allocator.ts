@@ -3,10 +3,12 @@ import { ip2long, long2ip, Netmask } from 'netmask';
 export class IPAllocator {
   private readonly block: Netmask;
   private readonly allocated: Set<string>;
+  public readonly first: string;
 
   constructor(net: string) {
     this.block = new Netmask(net);
     this.allocated = new Set();
+    this.first = this.block.first;
     this.allocated.add(this.block.first);
     this.allocated.add(this.block.base);
     this.allocated.add(this.block.broadcast);

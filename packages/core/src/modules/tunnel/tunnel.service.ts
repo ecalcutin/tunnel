@@ -3,6 +3,7 @@ import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { AppConfigService } from '../config';
 
 import { IPAllocator, Wireguard } from './helpers';
+import { buildServerConfig } from './templates/server-template';
 import { TunnelRepository } from './tunnel.repository';
 
 @Injectable()
@@ -28,12 +29,12 @@ export class TunnelService implements OnApplicationBootstrap {
   public async create() {
     const ip = this.ipAllocator.allocateIP();
     const keyPair = this.wireguard.generateKeyPair();
-    const tunnel = await this.tunnelRepository.create({
+    await this.tunnelRepository.create({
       ip,
       clientPrivateKey: keyPair.privateKey,
       clientPublicKey: keyPair.publicKey,
     });
-    return tunnel;
+    await this.hydrate();
   }
 
   public read() {
@@ -50,5 +51,18 @@ export class TunnelService implements OnApplicationBootstrap {
     const tunnels = await this.tunnelRepository.read();
     const ips = tunnels.map(tunnel => tunnel.ip);
     this.ipAllocator.allocateIPs(ips);
+  }
+
+  private async hydrate(): Promise<void> {
+    const tunnels = await this.tunnelRepository.read();
+    const conf = buildServerConfig({
+      peers: tunnels.map(({ ip, clientPublicKey }) => ({
+        ip,
+        clientPublicKey,
+      })),
+      ip: this.ipAllocator.first,
+      serverPrivateKey: this.appConfigService.WIREGUARD.privateKey,
+    });
+    this.wireguard.apply(conf);
   }
 }
