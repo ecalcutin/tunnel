@@ -7,7 +7,7 @@
   "type": "commonjs",
   "description": "",
   "scripts": {
-    "start": "docker compose -f docker-compose.dev.yml up",
+    "start": "docker compose -f docker-compose.dev.yml up --build",
     "start:debug": "tsx watch --inspect=0.0.0.0 --tsconfig tsconfig.dev.json src/index.ts",
     "build": "tsc",
     "lint": "eslint ./src --fix"
@@ -19,9 +19,11 @@
     "@nestjs/mongoose": "^11.0.3",
     "@nestjs/platform-express": "^11.1.2",
     "class-validator": "^0.14.2",
-    "mongoose": "^8.15.1"
+    "mongoose": "^8.15.1",
+    "netmask": "^2.0.2"
   },
   "devDependencies": {
+    "@types/netmask": "^2.0.5",
     "@types/node": "^22.15.21",
     "tsx": "^4.19.4"
   }
