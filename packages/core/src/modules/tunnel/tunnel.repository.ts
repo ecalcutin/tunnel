@@ -4,11 +4,13 @@ import { Model } from 'mongoose';
 
 import { BaseRepository } from '../../repository';
 
-import { Peer } from './peer.schema';
+import { Tunnel } from './tunnel.schema';
 
 @Injectable()
-export class PeerRepository extends BaseRepository<Peer> {
-  constructor(@InjectModel(Peer.name) private readonly peerModel: Model<Peer>) {
+export class TunnelRepository extends BaseRepository<Tunnel> {
+  constructor(
+    @InjectModel(Tunnel.name) private readonly peerModel: Model<Tunnel>,
+  ) {
     super(peerModel);
   }
 }

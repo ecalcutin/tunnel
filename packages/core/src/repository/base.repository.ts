@@ -12,7 +12,12 @@ export class BaseRepository<T> {
     return createdEntity.toObject();
   }
 
-  public async deleteById(id: string): Promise<void> {
-    await this.entityModel.findByIdAndDelete(id).exec();
+  public async deleteById(id: string): Promise<T> {
+    const entity = await this.entityModel.findByIdAndDelete(id).exec();
+    if (entity) {
+      return entity.toObject();
+    } else {
+      throw new Error('Entity not found');
+    }
   }
 }

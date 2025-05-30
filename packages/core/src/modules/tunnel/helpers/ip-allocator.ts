@@ -4,16 +4,15 @@ export class IPAllocator {
   private readonly block: Netmask;
   private readonly allocated: Set<string>;
 
-  constructor(net: string, alreadyAllocated: Array<string> = []) {
+  constructor(net: string) {
     this.block = new Netmask(net);
-    this.allocated = new Set(alreadyAllocated);
+    this.allocated = new Set();
     this.allocated.add(this.block.first);
     this.allocated.add(this.block.base);
     this.allocated.add(this.block.broadcast);
   }
 
   public allocateIP(): string {
-    console.log(this.allocated);
     let currentLong = ip2long(this.block.first);
     const lastLong = ip2long(this.block.last);
 
@@ -35,5 +34,9 @@ export class IPAllocator {
     if (this.allocated.has(ip)) {
       this.allocated.delete(ip);
     }
+  }
+
+  public allocateIPs(ips: string[]) {
+    ips.forEach(ip => this.allocated.add(ip));
   }
 }

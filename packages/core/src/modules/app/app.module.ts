@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AccountModule } from '../account';
 import { AppConfigModule } from '../config';
-import { PeerModule } from '../peer';
+import { TunnelModule } from '../tunnel';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,9 +18,8 @@ import { AppService } from './app.service';
         };
       },
     }),
-
+    TunnelModule,
     AccountModule,
-    PeerModule,
   ],
   providers: [AppService],
   controllers: [AppController],

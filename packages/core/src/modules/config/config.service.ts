@@ -11,6 +11,6 @@ export class AppConfigService {
   ) {}
 
   get WIREGUARD() {
-    return this.configService.get('wireguard', { infer: true });
+    return this.configService.get('wireguard', { infer: true })!;
   }
 }
