@@ -7,7 +7,7 @@
   "type": "commonjs",
   "description": "",
   "scripts": {
-    "start": "docker compose -f docker-compose.dev.yml up --build",
+    "start": "docker compose -f docker-compose.dev.yml up",
     "start:debug": "tsx watch --inspect=0.0.0.0 --tsconfig tsconfig.dev.json src/index.ts",
     "build": "tsc",
     "lint": "eslint ./src --fix"

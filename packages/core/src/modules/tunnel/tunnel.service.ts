@@ -60,6 +60,7 @@ export class TunnelService implements OnApplicationBootstrap {
     const tunnels = await this.tunnelRepository.read();
     const ips = tunnels.map(tunnel => tunnel.clientIP);
     this.ipAllocator.allocateIPs(ips);
+    this.hydrate();
   }
 
   private async hydrate(): Promise<void> {

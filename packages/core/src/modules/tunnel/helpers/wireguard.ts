@@ -21,7 +21,7 @@ export class Wireguard {
 
   public apply(config: string) {
     fs.writeFileSync(this.WG_CONFIG_PATH, config, { encoding: 'utf-8' });
-    execSync('wg-quick up wg0', { stdio: 'inherit' });
     execSync('wg-quick down wg0 || true', { stdio: 'inherit' });
+    execSync('wg-quick up wg0', { stdio: 'inherit' });
   }
 }
