@@ -31,7 +31,7 @@ const buildPeerConfig = (options: PeerConfigOptions) => {
   ).replace('<CLIENT_IP>', options.clientIP);
 };
 
-export const buildServerConfig = (options: ServerConfigOptions): string => {
+export const jsonToServerConfig = (options: ServerConfigOptions): string => {
   return SERVER_TEMPLATE.replace(
     '<SERVER_PRIVATE_KEY>',
     options.serverPrivateKey,

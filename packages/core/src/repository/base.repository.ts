@@ -7,6 +7,14 @@ export class BaseRepository<T> {
     return this.entityModel.find().exec();
   }
 
+  public async readById(id: string): Promise<T> {
+    const entity = await this.entityModel.findById(id).exec();
+    if (entity) {
+      return entity.toObject();
+    }
+    throw new Error('Entity not found');
+  }
+
   public async create(entity: T): Promise<T> {
     const createdEntity = await new this.entityModel(entity).save();
     return createdEntity.toObject();
@@ -16,8 +24,7 @@ export class BaseRepository<T> {
     const entity = await this.entityModel.findByIdAndDelete(id).exec();
     if (entity) {
       return entity.toObject();
-    } else {
-      throw new Error('Entity not found');
     }
+    throw new Error('Entity not found');
   }
 }

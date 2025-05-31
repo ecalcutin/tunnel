@@ -6,4 +6,4 @@ RUN apt-get update && apt-get install -y wireguard iproute2 iptables
 COPY ./ ./
 RUN npm install
 
-EXPOSE 3000 9229
+EXPOSE 3000 51820 9229

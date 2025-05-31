@@ -16,7 +16,7 @@ type ClientConfigOptions = {
   readonly clientIP: string;
 };
 
-export const buildClientConfig = (options: ClientConfigOptions) => {
+export const jsonToClientConfig = (options: ClientConfigOptions) => {
   return CLIENT_TEMPLATE.replace(
     '<CLIENT_PRIVATE_KEY>',
     options.clientPrivateKey,
