@@ -1,0 +1,16 @@
+services:
+  core:
+    extends:
+      file: docker-compose.yml
+      service: core
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+      - '51820:51820/udp'
+      - '51821:51821/tcp'
+      - '9229:9229'
