@@ -2,6 +2,10 @@ name: Deploy common workflow
 
 on:
   workflow_call:
+    inputs:
+      HOST:
+        required: true
+        type: string
     secrets:
       SSH_USERNAME:
         required: true
