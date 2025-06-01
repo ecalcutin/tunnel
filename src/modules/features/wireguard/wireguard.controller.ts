@@ -1,6 +1,13 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Inject,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
-import { WriteConfigDto } from './dto';
 import { WireguardService } from './wireguard.service';
 
 @Controller('/wireguard')
@@ -21,7 +28,9 @@ export class WireguardController {
   }
 
   @Post('/config')
-  async writeConfig(@Body() input: WriteConfigDto) {
-    return this.wireguardService.writeConfig(input.config);
+  @UseInterceptors(FileInterceptor('file')) // 'file' is the field name in the form-data
+  async writeConfig(@UploadedFile() file: Express.Multer.File) {
+    const config = file.buffer.toString();
+    return this.wireguardService.apply(config);
   }
 }

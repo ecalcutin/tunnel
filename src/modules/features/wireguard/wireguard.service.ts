@@ -39,7 +39,7 @@ export class WireguardService implements OnApplicationBootstrap {
   }
 
   public apply = (config: string) => {
-    writeFileSync(this.WG_CONFIG_PATH, config, { encoding: 'utf-8' });
+    this.writeConfig(config);
     this.down();
     this.up();
   };
