@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ecalcutin/tunnel:latest
     ports:
       - '3000:3000'
       - '51820:51820/udp'

@@ -37,13 +37,13 @@ jobs:
           script: |
             # Stop the application
             cd ~
-            docker-compose down
+            docker compose down
 
             # Pull the latest image
             docker pull ecalcutin/tunnel:latest
 
             # Start the application
-            docker-compose up -d
+            docker compose up -d
 
             # Clean up old images
             docker image prune -a -f --filter "until=24h"
