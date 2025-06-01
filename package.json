@@ -16,7 +16,8 @@
   "homepage": "https://github.com/ecalcutin/tunnel#readme",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint ./src --fix",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/node": "^22.15.29",
