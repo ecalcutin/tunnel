@@ -57,6 +57,7 @@ export class WireguardService implements OnApplicationBootstrap {
   };
 
   public writeConfig = (config: string): void => {
+    execSync('mkdir -p /etc/wireguard');
     writeFileSync(this.WG_CONFIG_PATH, config, { encoding: 'utf-8' });
   };
 }
