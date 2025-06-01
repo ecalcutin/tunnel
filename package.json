@@ -19,6 +19,14 @@
     "lint": "eslint ./src --fix",
     "prepare": "husky"
   },
+  "dependencies": {
+    "@nestjs/common": "^11.1.2",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.2",
+    "@nestjs/platform-express": "^11.1.2",
+    "class-validator": "^0.14.2",
+    "netmask": "^2.0.2"
+  },
   "devDependencies": {
     "@types/node": "^22.15.29",
     "eslint": "^9.28.0",
@@ -36,12 +44,5 @@
       "eslint --fix",
       "prettier --write"
     ]
-  },
-  "dependencies": {
-    "@nestjs/common": "^11.1.2",
-    "@nestjs/config": "^4.0.2",
-    "@nestjs/core": "^11.1.2",
-    "class-validator": "^0.14.2",
-    "netmask": "^2.0.2"
   }
 }
