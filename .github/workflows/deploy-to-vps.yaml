@@ -1,0 +1,40 @@
+name: Deploy common workflow
+
+on:
+  workflow_call:
+
+jobs:
+  deploy-to-cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: 'docker-compose.yml'
+          target: '~/'
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Stop the application
+            cd ~
+            docker-compose down
+
+            # Pull the latest image
+            docker pull ecalcutin/tunnel:latest
+
+            # Start the application
+            docker-compose up -d
+
+            # Clean up old images
+            docker image prune -a -f --filter "until=24h"
