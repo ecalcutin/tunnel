@@ -38,11 +38,18 @@ export class WireguardService implements OnApplicationBootstrap {
     };
   }
 
-  public apply(config: string) {
+  public apply = (config: string) => {
     writeFileSync(this.WG_CONFIG_PATH, config, { encoding: 'utf-8' });
+    this.down();
+    this.up();
+  };
+
+  public down = (): void => {
     execSync('wg-quick down wg0 || true', { stdio: 'inherit' });
+  };
+  public up = (): void => {
     execSync('wg-quick up wg0', { stdio: 'inherit' });
-  }
+  };
 
   public readConfig = (): string => {
     const config = readFileSync(this.WG_CONFIG_PATH, { encoding: 'utf-8' });
