@@ -2,6 +2,11 @@ name: Deploy common workflow
 
 on:
   workflow_call:
+    secrets:
+      SSH_USERNAME:
+        required: true
+      SSH_PRIVATE_KEY:
+        required: true
 
 jobs:
   deploy-to-cluster:
