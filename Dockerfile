@@ -31,5 +31,5 @@ RUN apk add --no-cache \
     npm
 
 ENV NODE_ENV=production
-EXPOSE 3000 51820
+EXPOSE 3000 51820 51821
 CMD ["node", "/app/build/index.js"]
