@@ -10,6 +10,11 @@ export class WireguardController {
     private readonly wireguardService: WireguardService,
   ) {}
 
+  @Get('/keypair')
+  async generateKeyPair() {
+    return this.wireguardService.generateKeyPair();
+  }
+
   @Get('/config')
   async readConfig() {
     return this.wireguardService.readConfig();
