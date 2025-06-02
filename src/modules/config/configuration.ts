@@ -6,6 +6,7 @@ export default (): AppConfig => {
       privateKey: process.env.WIREGUARD_PRIVATE_KEY!,
       publicKey: process.env.WIREGUARD_PUBLIC_KEY!,
       configPath: process.env.WIREGUARD_CONFIG_PATH!,
+      WIREGUARD_SERVER: process.env.WIREGUARD_SERVER!,
     },
 
     mongodb: {

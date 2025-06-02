@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 
 import { IPAllocatorService } from '../ip-allocator';
-import { WireguardService } from '../wireguard';
+import { TemplateService, WireguardService } from '../wireguard';
 
 import { TunnelRepository } from './tunnel.repository';
 import { Tunnel } from './tunnel.schema';
@@ -11,6 +11,8 @@ export class TunnelService implements OnApplicationBootstrap {
   constructor(
     @Inject(WireguardService)
     private readonly wireguardService: WireguardService,
+
+    @Inject(TemplateService) private readonly templateService: TemplateService,
 
     @Inject(IPAllocatorService)
     private readonly ipAllocatorService: IPAllocatorService,
@@ -23,11 +25,20 @@ export class TunnelService implements OnApplicationBootstrap {
     const tunnels = await this.tunnelRepository.read();
     const ips = tunnels.map(tunnel => tunnel.clientIP);
     this.ipAllocatorService.allocateIPs(ips);
+    const config = await this.templateService.generateServerConfig(tunnels);
+    console.log(tunnels);
+    console.log(config);
   }
 
   public async read(): Promise<Tunnel[]> {
     const tunnels = await this.tunnelRepository.read();
     return tunnels;
+  }
+
+  public async readWireguardConfigById(id: string): Promise<string> {
+    const tunnel = await this.tunnelRepository.readById(id);
+    const config = await this.templateService.generateClientConfig(tunnel);
+    return config;
   }
 
   public async create(): Promise<Tunnel> {

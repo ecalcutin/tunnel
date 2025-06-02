@@ -13,6 +13,11 @@ export class TunnelController {
     return this.tunnelService.create();
   }
 
+  @Get('/:id/wireguard-config')
+  async readWireguardConfigById(@Param('id') id: string) {
+    return this.tunnelService.readWireguardConfigById(id);
+  }
+
   @Get('/')
   async read() {
     return this.tunnelService.read();
