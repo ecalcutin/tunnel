@@ -48,7 +48,7 @@ export class WireguardService implements OnApplicationBootstrap {
     execSync('wg-quick down wg0 || true', { stdio: 'inherit' });
   };
   public up = (): void => {
-    execSync('wg-quick up wg0', { stdio: 'inherit' });
+    execSync('wg-quick up wg0', { stdio: 'pipe' });
   };
 
   public readConfig = (): string => {
