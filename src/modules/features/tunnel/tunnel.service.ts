@@ -26,8 +26,7 @@ export class TunnelService implements OnApplicationBootstrap {
     const ips = tunnels.map(tunnel => tunnel.clientIP);
     this.ipAllocatorService.allocateIPs(ips);
     const config = await this.templateService.generateServerConfig(tunnels);
-    console.log(tunnels);
-    console.log(config);
+    this.wireguardService.apply(config);
   }
 
   public async read(): Promise<Tunnel[]> {
