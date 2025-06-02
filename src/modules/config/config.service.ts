@@ -13,4 +13,8 @@ export class AppConfigService {
   get WIREGUARD() {
     return this.configService.get('wireguard', { infer: true })!;
   }
+
+  get MONGODB() {
+    return this.configService.get('mongodb', { infer: true });
+  }
 }
