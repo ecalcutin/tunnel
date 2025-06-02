@@ -14,3 +14,9 @@ services:
       - '51820:51820/udp'
       - '51821:51821/tcp'
       - '9229:9229'
+
+  wireguard-client:
+    image: amneziavpn/amneziawg-go
+    command: tail -f /dev/null
+    volumes:
+      - ./wg0.conf:/etc/amnezia/amneziawg/wg0.conf
