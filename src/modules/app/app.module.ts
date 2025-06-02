@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 
 import { AppConfigModule } from '../config';
-import { CoreModule } from '../core';
+import { TunnelModule } from '../features/tunnel';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [AppConfigModule, CoreModule],
+  imports: [AppConfigModule, TunnelModule],
   providers: [AppService],
   controllers: [AppController],
 })

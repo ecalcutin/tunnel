@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
-import { WireguardModule } from '../features/wireguard';
+import { WireguardModule } from '../wireguard';
 
 @Module({
   imports: [WireguardModule],
 })
-export class CoreModule {}
+export class TunnelModule {}
