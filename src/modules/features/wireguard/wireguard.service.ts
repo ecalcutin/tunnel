@@ -16,9 +16,9 @@ export class WireguardService implements OnApplicationBootstrap {
     private readonly appConfigService: AppConfigService,
   ) {
     const wireguardConfig = appConfigService.WIREGUARD;
-    this.privateKey = wireguardConfig.privateKey;
-    this.publicKey = wireguardConfig.publicKey;
-    this.WG_CONFIG_PATH = wireguardConfig.configPath;
+    this.privateKey = wireguardConfig.WIREGUARD_PRIVATE_KEY;
+    this.publicKey = wireguardConfig.WIREGUARD_PUBLIC_KEY;
+    this.WG_CONFIG_PATH = wireguardConfig.WIREGUARD_CONFIG_PATH;
   }
 
   onApplicationBootstrap() {

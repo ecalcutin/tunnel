@@ -23,7 +23,7 @@ export class TemplateService {
   ) {}
 
   public async generateServerConfig(tunnels: Tunnel[]): Promise<string> {
-    const { privateKey } = this.appConfigService.WIREGUARD;
+    const { WIREGUARD_PRIVATE_KEY } = this.appConfigService.WIREGUARD;
 
     const template = readFileSync(this.WG_SERVER_TEMPLATE, {
       encoding: 'utf-8',
@@ -39,11 +39,12 @@ PersistentKeepalive = 25`;
       .join('\n');
 
     return template
-      .replace('<SERVER_PRIVATE_KEY>', privateKey)
+      .replace('<SERVER_PRIVATE_KEY>', WIREGUARD_PRIVATE_KEY)
       .replace('#<PEERS>', peersTemplate);
   }
   public async generateClientConfig(tunnel: Tunnel): Promise<string> {
-    const { publicKey, WIREGUARD_SERVER } = this.appConfigService.WIREGUARD;
+    const { WIREGUARD_PUBLIC_KEY, WIREGUARD_SERVER } =
+      this.appConfigService.WIREGUARD;
 
     const template = readFileSync(this.WG_CLIENT_TEMPLATE, {
       encoding: 'utf-8',
@@ -51,7 +52,7 @@ PersistentKeepalive = 25`;
 
     return template
       .replace('<CLIENT_PRIVATE_KEY>', tunnel.clientPrivateKey)
-      .replace('<SERVER_PUBLIC_KEY>', publicKey)
+      .replace('<SERVER_PUBLIC_KEY>', WIREGUARD_PUBLIC_KEY)
       .replace('<SERVER_IP>', WIREGUARD_SERVER);
   }
 }

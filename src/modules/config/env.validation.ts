@@ -9,5 +9,8 @@ export const ENV_VALIDATION: ObjectSchema<DatabaseConfig & WireguardConfig> =
     MONGO_HOST: Joi.string().required(),
     MONGO_PORT: Joi.string().required(),
 
+    WIREGUARD_PRIVATE_KEY: Joi.string().required(),
+    WIREGUARD_PUBLIC_KEY: Joi.string().required(),
+    WIREGUARD_CONFIG_PATH: Joi.string().required(),
     WIREGUARD_SERVER: Joi.string().required(),
   });

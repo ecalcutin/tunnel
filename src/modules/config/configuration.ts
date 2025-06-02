@@ -3,9 +3,9 @@ import { AppConfig } from './interfaces';
 export default (): AppConfig => {
   return {
     wireguard: {
-      privateKey: process.env.WIREGUARD_PRIVATE_KEY!,
-      publicKey: process.env.WIREGUARD_PUBLIC_KEY!,
-      configPath: process.env.WIREGUARD_CONFIG_PATH!,
+      WIREGUARD_PRIVATE_KEY: process.env.WIREGUARD_PRIVATE_KEY!,
+      WIREGUARD_PUBLIC_KEY: process.env.WIREGUARD_PUBLIC_KEY!,
+      WIREGUARD_CONFIG_PATH: process.env.WIREGUARD_CONFIG_PATH!,
       WIREGUARD_SERVER: process.env.WIREGUARD_SERVER!,
     },
 
