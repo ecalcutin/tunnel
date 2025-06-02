@@ -1,4 +1,4 @@
-import { Controller, Inject } from '@nestjs/common';
+import { Controller, Delete, Get, Inject, Param, Post } from '@nestjs/common';
 
 import { TunnelService } from './tunnel.service';
 
@@ -7,4 +7,19 @@ export class TunnelController {
   constructor(
     @Inject(TunnelService) private readonly tunnelService: TunnelService,
   ) {}
+
+  @Post('/')
+  async create() {
+    return this.tunnelService.create();
+  }
+
+  @Get('/')
+  async read() {
+    return this.tunnelService.read();
+  }
+
+  @Delete('/:id')
+  async deleteById(@Param('id') id: string) {
+    await this.tunnelService.deleteById(id);
+  }
 }
