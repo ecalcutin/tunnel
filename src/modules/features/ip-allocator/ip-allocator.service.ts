@@ -7,8 +7,8 @@ export class IPAllocatorService {
   private readonly allocated: Set<string>;
   public readonly first: string;
 
-  constructor(net: string = '10.0.0.0/24') {
-    this.block = new Netmask(net);
+  constructor() {
+    this.block = new Netmask('10.0.0.0/24');
     this.allocated = new Set();
     this.first = this.block.first;
     this.allocated.add(this.block.first);
