@@ -1,5 +1,7 @@
 services:
   core:
+    depends_on:
+      - database
     extends:
       file: docker-compose.yml
       service: core
@@ -14,7 +16,12 @@ services:
       - '51820:51820/udp'
       - '51821:51821/tcp'
       - '9229:9229'
-
+  database:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
   wireguard-client:
     image: amneziavpn/amneziawg-go
     command: sh -c "apk add openresolv && tail -f /dev/null"
@@ -29,3 +36,6 @@ services:
       - net.ipv4.ip_forward=1
     devices:
       - /dev/net/tun
+
+volumes:
+  mongodb_data:
