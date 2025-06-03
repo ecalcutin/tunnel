@@ -15,6 +15,7 @@ export default (): AppConfig => {
       MONGO_HOST: process.env.MONGO_HOST!,
       MONGO_PORT: process.env.MONGO_PORT!,
       MONGO_DB: process.env.MONGO_DB!,
+      MONGO_AUTH_DB: process.env.MONGO_AUTH_DB!,
     },
   };
 };
