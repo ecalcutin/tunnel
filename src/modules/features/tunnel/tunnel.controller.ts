@@ -2,7 +2,7 @@ import { Controller, Delete, Get, Inject, Param, Post } from '@nestjs/common';
 
 import { TunnelService } from './tunnel.service';
 
-@Controller('/tunnel')
+@Controller('/tunnels')
 export class TunnelController {
   constructor(
     @Inject(TunnelService) private readonly tunnelService: TunnelService,
