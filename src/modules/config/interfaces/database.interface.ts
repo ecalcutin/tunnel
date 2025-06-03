@@ -3,4 +3,5 @@ export interface DatabaseConfig {
   readonly MONGO_PASSWORD: string;
   readonly MONGO_HOST: string;
   readonly MONGO_PORT: string;
+  readonly MONGO_DB: string;
 }

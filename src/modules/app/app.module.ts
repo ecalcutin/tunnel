@@ -14,9 +14,14 @@ import { AppService } from './app.service';
       inject: [AppConfigService],
       useFactory: async (configService: AppConfigService) => {
         const mongoConfig = configService.MONGODB!;
-        const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_PORT } =
-          mongoConfig;
-        const uri = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}`;
+        const {
+          MONGO_USERNAME,
+          MONGO_PASSWORD,
+          MONGO_HOST,
+          MONGO_PORT,
+          MONGO_DB,
+        } = mongoConfig;
+        const uri = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
         return {
           uri,
         };
