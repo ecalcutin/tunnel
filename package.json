@@ -1,6 +1,6 @@
 {
   "name": "tunnel",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "A Node.js backend for managing WireGuard VPN, providing a simple REST API for VPN management without the complexity of traditional VPN setups.",
   "repository": {
     "type": "git",
