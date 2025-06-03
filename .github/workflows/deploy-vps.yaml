@@ -2,6 +2,10 @@ name: Deploy to VPS
 
 on:
   workflow_call:
+    inputs:
+      image_tag:
+        required: true
+        type: string
     secrets:
       SSH_USERNAME:
         required: true
@@ -38,7 +42,7 @@ jobs:
             docker-compose down
 
             # Pull the latest image
-            docker pull ecalcutin/tunnel:latest
+            docker pull ${{ env.IMAGE_NAME }}:${{ inputs.image_tag }}
 
             # Start the application
             docker-compose up -d
