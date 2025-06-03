@@ -54,7 +54,7 @@ jobs:
           docker tag ${{ env.IMAGE_NAME }}:${{ needs.increment-version.outputs.version }} ${{ env.IMAGE_NAME }}:latest
           docker push ${{ env.IMAGE_NAME }}:latest
 
-  deploy:
+  deploy-k8s:
     needs: [build]
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-k8s.yaml
@@ -62,3 +62,13 @@ jobs:
       image_tag: ${{ needs.build.outputs.image_tag }}
     secrets:
       KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+
+  deploy-vps:
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy-vps.yaml
+    with:
+      image_tag: ${{ needs.build.outputs.image_tag }}
+    secrets:
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
