@@ -7,6 +7,8 @@ on:
         required: true
       SSH_PASSWORD:
         required: true
+env:
+  IMAGE_NAME: ecalcutin/tunnel
 
 jobs:
   deploy-vps:

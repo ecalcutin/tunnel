@@ -13,5 +13,5 @@ bootstrap()
     console.error(error);
   })
   .then(() => {
-    console.log(`App started on 3000 port.`);
+    console.log(`App started.`);
   });
