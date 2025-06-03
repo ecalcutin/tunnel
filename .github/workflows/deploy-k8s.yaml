@@ -1,4 +1,4 @@
-name: Deploy common workflow
+name: Deploy to k8s
 
 on:
   workflow_call:
@@ -14,7 +14,7 @@ env:
   IMAGE_NAME: ecalcutin/tunnel
 
 jobs:
-  deploy-to-cluster:
+  deploy-k8s:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

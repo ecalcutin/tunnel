@@ -13,5 +13,5 @@ bootstrap()
     console.error(error);
   })
   .then(() => {
-    console.log('App started');
+    console.log(`App started.`);
   });
