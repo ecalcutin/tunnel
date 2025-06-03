@@ -1,5 +1,7 @@
 services:
   core:
+    depends_on:
+      - database
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,3 +19,13 @@ services:
       - net.ipv4.ip_forward=1
     devices:
       - /dev/net/tun:/dev/net/tun
+
+  database:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: public_username
+      MONGO_INITDB_ROOT_PASSWORD: public_password
+    volumes:
+      - mongodb_data:/data/db
