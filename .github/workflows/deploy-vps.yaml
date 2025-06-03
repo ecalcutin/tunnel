@@ -35,7 +35,7 @@ jobs:
         with:
           host: 45.67.229.235
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
             # Stop the application
             cd ~
