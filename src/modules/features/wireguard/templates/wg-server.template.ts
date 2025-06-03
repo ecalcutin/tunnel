@@ -1,4 +1,4 @@
-[Interface]
+export const SERVER_TEMPLATE = `[Interface]
 PrivateKey = <SERVER_PRIVATE_KEY>
 Address = 10.0.0.1/24
 ListenPort = 51820
@@ -14,4 +14,4 @@ H2=2
 H3=3
 H4=4
 
-#<PEERS>
+#<PEERS>`;

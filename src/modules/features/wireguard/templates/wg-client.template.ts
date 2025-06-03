@@ -1,4 +1,4 @@
-[Interface]
+export const CLIENT_TEMPLATE = `[Interface]
 PrivateKey = <CLIENT_PRIVATE_KEY>
 Address = 10.0.0.2
 DNS = 8.8.8.8
@@ -16,4 +16,4 @@ H4 = 4
 PublicKey = <SERVER_PUBLIC_KEY>
 Endpoint = <SERVER_IP>:30500
 AllowedIPs = 0.0.0.0/0
-PersistentKeepalive = 25
+PersistentKeepalive = 25`;
