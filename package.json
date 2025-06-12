@@ -1,0 +1,36 @@
+{
+  "name": "tunnel",
+  "version": "1.0.0",
+  "description": "A Node.js backend for managing WireGuard VPN, providing a simple REST API for VPN management without the complexity of traditional VPN setups.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecalcutin/tunnel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ecalcutin/tunnel/issues"
+  },
+  "homepage": "https://github.com/ecalcutin/tunnel#readme",
+  "workspaces": [
+    "packages/backend",
+    "packages/frontend",
+    "packages/shared"
+  ],
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "prettier": "^3.5.3"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
