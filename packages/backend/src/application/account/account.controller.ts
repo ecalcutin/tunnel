@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { AccountService } from '../../core/account/use-cases/account.service';
+import { AccountService } from 'core/account/use-cases';
 
 import { CreateAccountDto } from './dto';
 

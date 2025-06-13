@@ -6,7 +6,13 @@
     "sourceMap": true,
     "sourceRoot": "./src",
     "rootDir": "./src",
-    "outDir": "build"
+    "baseUrl": "./src",
+    "outDir": "build",
+    "paths": {
+      "core/*": ["./core/*"],
+      "application/*": ["./application/*"],
+      "infrastructure/*": ["./infrastructure/*"]
+    }
   },
   "include": ["src/"]
 }

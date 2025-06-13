@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 
-import { MongoDBModule } from './database/mongodb/mongodb.module';
+import { MongoDBModule } from './mongodb';
 
 @Module({
   imports: [MongoDBModule],
   exports: [MongoDBModule],
 })
-export class InfrastructureModule {}
+export class DatabaseModule {}

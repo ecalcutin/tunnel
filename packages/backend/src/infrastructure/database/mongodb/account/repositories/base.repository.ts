@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 
-import { BaseRepositoryPort } from '../../../../../core/shared';
+import { type BaseRepositoryPort } from 'core/shared';
 
 export abstract class BaseRepository<DomainEntity, TEntity>
   implements BaseRepositoryPort<DomainEntity>

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { AccountCoreModule } from '../../core/account/account.module';
-import { AccountMongoDBModule } from '../../infrastructure/database/mongodb/account/account.module';
+import { AccountCoreModule } from 'core/account';
+import { DatabaseModule } from 'infrastructure/database';
 
 import { AccountController } from './account.controller';
 
 @Module({
-  imports: [AccountCoreModule, AccountMongoDBModule],
+  imports: [AccountCoreModule, DatabaseModule],
   controllers: [AccountController],
 })
 export class AccountApiModule {}

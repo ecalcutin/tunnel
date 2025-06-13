@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx watch src/index.ts",
-    "build": "tsc"
+    "build": "tsc && tsc-alias"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "mongoose": "^8.15.1"
   },
   "devDependencies": {
+    "tsc-alias": "^1.8.16",
     "tsx": "^4.20.2"
   }
 }

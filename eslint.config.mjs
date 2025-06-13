@@ -16,7 +16,10 @@ export default defineConfig([
     ...importPlugin.flatConfigs.recommended,
     settings: {
       'import/resolver': {
-        typescript: true,
+        typescript: {
+          alwaysTryTypes: true,
+          project: './packages/*/tsconfig.json',
+        },
       },
     },
   },

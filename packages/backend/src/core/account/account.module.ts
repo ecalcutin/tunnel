@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 
-import { InfrastructureModule } from '../../infrastructure/infrastructure.module';
+import { DatabaseModule } from 'infrastructure/database';
 
 import { AccountService } from './use-cases/account.service';
 
 @Module({
-  imports: [InfrastructureModule],
+  imports: [DatabaseModule],
   providers: [AccountService],
   exports: [AccountService],
 })

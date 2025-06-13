@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-import { Account } from '../../../../../core/account/entities/account.entity';
+import { Account } from 'core/account/entities';
 
 @Schema()
 export class AccountEntity implements Account {
