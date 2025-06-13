@@ -1,28 +1,28 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { Account } from '../entities/account.entity';
-import { type AccountRepositoryPort } from '../ports/account.repository';
+import { Account } from '../entities';
+import { type AccountRepositoryPort } from '../ports';
 
 @Injectable()
 export class AccountService {
   constructor(
     @Inject('IAccountRepository')
-    private readonly accontRepository: AccountRepositoryPort,
+    private readonly accountRepository: AccountRepositoryPort,
   ) {}
 
   public async create(account: Account): Promise<Account> {
-    return this.accontRepository.create(account);
+    return this.accountRepository.create(account);
   }
 
   public async find(): Promise<Account[]> {
-    return this.accontRepository.find();
+    return this.accountRepository.find();
   }
 
   public async getById(id: string): Promise<Account> {
-    return this.accontRepository.getById(id);
+    return this.accountRepository.getById(id);
   }
 
   public async deleteById(id: string): Promise<Account> {
-    return this.accontRepository.deleteById(id);
+    return this.accountRepository.deleteById(id);
   }
 }

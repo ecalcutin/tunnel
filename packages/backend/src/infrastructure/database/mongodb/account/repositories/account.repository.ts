@@ -2,11 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { Account, AccountRepositoryPort } from 'core/account';
+import { Account, type AccountRepositoryPort } from 'core/account';
 
-import { AccountEntity } from '../entities/account.entity';
-
-import { BaseRepository } from './base.repository';
+import { BaseRepository } from '../../shared';
+import { AccountEntity } from '../entities';
 
 @Injectable()
 export class AccountMongoRepository

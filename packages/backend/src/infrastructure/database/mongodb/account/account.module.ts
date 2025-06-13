@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AccountEntity, AccountSchema } from './entities/account.entity';
-import { AccountMongoRepository } from './repositories/account.repository';
+import {
+  AccountEntity,
+  AccountSchema,
+  RoleEntity,
+  RoleSchema,
+} from './entities';
+import { AccountMongoRepository, RoleMongoRepository } from './repositories';
 
 @Module({
   imports: [
@@ -11,6 +16,10 @@ import { AccountMongoRepository } from './repositories/account.repository';
         name: AccountEntity.name,
         schema: AccountSchema,
       },
+      {
+        name: RoleEntity.name,
+        schema: RoleSchema,
+      },
     ]),
   ],
   providers: [
@@ -18,7 +27,11 @@ import { AccountMongoRepository } from './repositories/account.repository';
       provide: 'IAccountRepository',
       useClass: AccountMongoRepository,
     },
+    {
+      provide: 'IRoleRepository',
+      useClass: RoleMongoRepository,
+    },
   ],
-  exports: ['IAccountRepository'],
+  exports: ['IAccountRepository', 'IRoleRepository'],
 })
 export class AccountMongoDBModule {}
