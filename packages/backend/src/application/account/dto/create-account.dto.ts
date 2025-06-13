@@ -1,6 +1,6 @@
-import { Account } from 'core/account/entities';
+import { Account } from 'core/account';
 
-export class CreateAccountDto implements Account {
-  public readonly email!: string;
-  public readonly password!: string;
+export class CreateAccountDto implements Omit<Account, 'id' | 'role'> {
+  public readonly email: string;
+  public readonly password: string;
 }

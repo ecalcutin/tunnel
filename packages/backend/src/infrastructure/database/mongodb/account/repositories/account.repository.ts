@@ -4,22 +4,32 @@ import { Model } from 'mongoose';
 
 import { Account, AccountRepositoryPort } from 'core/account';
 
-import { BaseRepository } from '../../shared';
-import { AccountEntity } from '../entities';
+import { AccountEntity, RoleEntity } from '../entities';
 
 @Injectable()
-export class AccountRepositoryMongoAdapter
-  extends BaseRepository<Account, AccountEntity>
-  implements AccountRepositoryPort
-{
+export class AccountRepositoryMongoAdapter implements AccountRepositoryPort {
   constructor(
     @InjectModel(AccountEntity.name)
     private readonly model: Model<AccountEntity>,
-  ) {
-    super(model);
+
+    @InjectModel(RoleEntity.name)
+    private readonly roleModel: Model<RoleEntity>,
+  ) {}
+
+  async create(account: Partial<Account>): Promise<Account> {
+    const role = await this.roleModel.findOne({ title: 'admin' }).exec();
+    const entity = await new this.model({
+      email: account.email,
+      password: account.password,
+      role: role!._id,
+    }).save();
+
+    await entity.populate(['role']);
+    return entity.toDomainModel();
   }
 
-  async findByEmail(email: string): Promise<Account | null> {
-    return this.model.findOne({ email }).exec();
+  async find(): Promise<Account[]> {
+    const entities = await this.model.find().populate(['role']).exec();
+    return entities.map(entity => entity.toDomainModel());
   }
 }

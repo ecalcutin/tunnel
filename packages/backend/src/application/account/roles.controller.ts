@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 
 import { RoleService } from 'core/account/use-cases';
 
@@ -24,15 +16,5 @@ export class RolesController {
   @Get('/')
   async find() {
     return this.roleService.find();
-  }
-
-  @Get('/:id')
-  async getById(@Param('id') id: string) {
-    return this.roleService.getById(id);
-  }
-
-  @Delete('/:id')
-  async deleteById(@Param('id') id: string) {
-    return this.roleService.deleteById(id);
   }
 }

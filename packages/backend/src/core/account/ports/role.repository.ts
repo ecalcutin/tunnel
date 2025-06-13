@@ -1,5 +1,6 @@
-import { BaseRepositoryPort } from 'core/shared';
-
 import { type Role } from '../entities';
 
-export abstract class RoleRepositoryPort extends BaseRepositoryPort<Role> {}
+export abstract class RoleRepositoryPort {
+  abstract find(): Promise<Role[]>;
+  abstract create(role: Omit<Role, 'id'>): Promise<Role>;
+}

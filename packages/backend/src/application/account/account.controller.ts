@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 
 import { AccountService } from 'core/account/use-cases';
 
@@ -26,15 +18,5 @@ export class AccountController {
   @Get('/')
   async find() {
     return this.accountService.find();
-  }
-
-  @Get('/:id')
-  async getById(@Param('id') id: string) {
-    return this.accountService.getById(id);
-  }
-
-  @Delete('/:id')
-  async deleteById(@Param('id') id: string) {
-    return this.accountService.deleteById(id);
   }
 }

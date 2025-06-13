@@ -1,16 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { BaseService } from 'core/shared';
-
 import { Account } from '../entities';
 import { AccountRepositoryPort } from '../ports';
 
 @Injectable()
-export class AccountService extends BaseService<Account> {
+export class AccountService {
   constructor(
     @Inject(AccountRepositoryPort)
     private readonly accountRepository: AccountRepositoryPort,
-  ) {
-    super(accountRepository);
+  ) {}
+
+  public async create(account: Partial<Account>): Promise<Account> {
+    return this.accountRepository.create(account);
+  }
+
+  public async find(): Promise<Account[]> {
+    return this.accountRepository.find();
   }
 }
