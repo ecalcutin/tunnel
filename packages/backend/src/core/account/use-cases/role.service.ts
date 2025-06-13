@@ -13,4 +13,8 @@ export class RoleService {
   public create(role: Role): Promise<Role> {
     return this.roleRepository.create(role);
   }
+
+  public find(): Promise<Role[]> {
+    return this.roleRepository.find();
+  }
 }
