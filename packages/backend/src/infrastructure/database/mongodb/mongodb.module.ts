@@ -1,18 +1,23 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
+
+import { AppConfigModule, AppConfigService } from 'infrastructure/config';
 
 import { AccountMongoDBModule } from './account/account.module';
 
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      imports: [],
-      useFactory: async () => {
+      imports: [AppConfigModule],
+      useFactory: async (appConfig: AppConfigService) => {
+        const { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } =
+          appConfig.DATABASE;
         return {
-          uri: 'mongodb://root:example@localhost:27017/tunnel?authSource=admin',
-        } as MongooseModuleOptions;
+          authSource: 'admin',
+          uri: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+        };
       },
-      inject: [],
+      inject: [AppConfigService],
     }),
     AccountMongoDBModule,
   ],
