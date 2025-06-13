@@ -5,4 +5,4 @@ import { AccountApiModule } from 'application/account';
 @Module({
   imports: [AccountApiModule],
 })
-export class AppModule {}
+export class MainModule {}
