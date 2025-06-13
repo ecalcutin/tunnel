@@ -1,6 +1,16 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+} from '@nestjs/common';
 
 import { AccountService } from '../../core/account/use-cases/account.service';
+
+import { CreateAccountDto } from './dto';
 
 @Controller('/accounts')
 export class AccountController {
@@ -8,8 +18,23 @@ export class AccountController {
     @Inject(AccountService) private readonly accountService: AccountService,
   ) {}
 
+  @Post('/')
+  async create(@Body() account: CreateAccountDto) {
+    return this.accountService.create(account);
+  }
+
   @Get('/')
-  async read() {
-    return this.accountService.read();
+  async find() {
+    return this.accountService.find();
+  }
+
+  @Get('/:id')
+  async getById(@Param('id') id: string) {
+    return this.accountService.getById(id);
+  }
+
+  @Delete('/:id')
+  async deleteById(@Param('id') id: string) {
+    return this.accountService.deleteById(id);
   }
 }
