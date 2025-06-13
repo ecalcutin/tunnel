@@ -8,7 +8,7 @@ import { BaseRepository } from '../../shared';
 import { AccountEntity } from '../entities';
 
 @Injectable()
-export class AccountMongoRepository
+export class AccountRepositoryMongoAdapter
   extends BaseRepository<Account, AccountEntity>
   implements AccountRepositoryPort
 {

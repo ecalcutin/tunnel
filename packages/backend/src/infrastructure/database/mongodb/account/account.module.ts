@@ -9,7 +9,10 @@ import {
   RoleEntity,
   RoleSchema,
 } from './entities';
-import { AccountMongoRepository, RoleMongoRepository } from './repositories';
+import {
+  AccountRepositoryMongoAdapter,
+  RoleRepositoryMongoAdapter,
+} from './repositories';
 
 @Module({
   imports: [
@@ -27,11 +30,11 @@ import { AccountMongoRepository, RoleMongoRepository } from './repositories';
   providers: [
     {
       provide: AccountRepositoryPort,
-      useClass: AccountMongoRepository,
+      useClass: AccountRepositoryMongoAdapter,
     },
     {
       provide: RoleRepositoryPort,
-      useClass: RoleMongoRepository,
+      useClass: RoleRepositoryMongoAdapter,
     },
   ],
   exports: [AccountRepositoryPort, RoleRepositoryPort],

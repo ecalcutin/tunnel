@@ -8,7 +8,7 @@ import { BaseRepository } from '../../shared';
 import { RoleEntity } from '../entities';
 
 @Injectable()
-export class RoleMongoRepository
+export class RoleRepositoryMongoAdapter
   extends BaseRepository<Role, RoleEntity>
   implements RoleRepositoryPort
 {
