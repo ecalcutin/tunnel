@@ -1,2 +1,2 @@
-export { type AccountRepositoryPort } from './account.repository';
-export { type RoleRepositoryPort } from './role.repository';
+export { AccountRepositoryPort } from './account.repository';
+export { RoleRepositoryPort } from './role.repository';

@@ -1,11 +1,14 @@
 import { Model } from 'mongoose';
 
-import { type BaseRepositoryPort } from 'core/shared';
+import { BaseRepositoryPort } from 'core/shared';
 
-export abstract class BaseRepository<DomainEntity, TEntity>
-  implements BaseRepositoryPort<DomainEntity>
-{
-  constructor(private readonly entityModel: Model<TEntity>) {}
+export abstract class BaseRepository<
+  DomainEntity,
+  TEntity,
+> extends BaseRepositoryPort<DomainEntity> {
+  constructor(private readonly entityModel: Model<TEntity>) {
+    super();
+  }
 
   public async create(entity: DomainEntity): Promise<DomainEntity> {
     const newEntity = await new this.entityModel(entity).save();

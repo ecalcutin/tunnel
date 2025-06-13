@@ -1,1 +1,1 @@
-export { type BaseRepositoryPort } from './base-repository.interface';
+export { BaseRepositoryPort } from './base.repository.';

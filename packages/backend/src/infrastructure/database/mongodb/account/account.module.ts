@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { AccountRepositoryPort, RoleRepositoryPort } from 'core/account/ports';
+
 import {
   AccountEntity,
   AccountSchema,
@@ -24,14 +26,14 @@ import { AccountMongoRepository, RoleMongoRepository } from './repositories';
   ],
   providers: [
     {
-      provide: 'IAccountRepository',
+      provide: AccountRepositoryPort,
       useClass: AccountMongoRepository,
     },
     {
-      provide: 'IRoleRepository',
+      provide: RoleRepositoryPort,
       useClass: RoleMongoRepository,
     },
   ],
-  exports: ['IAccountRepository', 'IRoleRepository'],
+  exports: [AccountRepositoryPort, RoleRepositoryPort],
 })
 export class AccountMongoDBModule {}

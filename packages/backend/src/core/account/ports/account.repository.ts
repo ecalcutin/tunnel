@@ -1,7 +1,7 @@
-import { type BaseRepositoryPort } from 'core/shared';
+import { BaseRepositoryPort } from 'core/shared';
 
 import { type Account } from '../entities';
 
-export interface AccountRepositoryPort extends BaseRepositoryPort<Account> {
-  findByEmail(email: string): Promise<Account | null>;
+export abstract class AccountRepositoryPort extends BaseRepositoryPort<Account> {
+  abstract findByEmail(email: string): Promise<Account | null>;
 }
