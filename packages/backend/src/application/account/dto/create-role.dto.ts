@@ -1,6 +1,6 @@
-import { Role } from 'core/account/entities';
+import { Role } from 'core/account/models';
 
 export class CreateRoleDto implements Omit<Role, 'id'> {
-  public readonly title: string;
+  public readonly code: string;
   public readonly description: string;
 }

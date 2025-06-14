@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
-import { Account } from 'core/account/entities';
+import { Account } from 'core/account/models';
 
 import { RoleEntity } from './role.entity';
 
@@ -30,16 +30,6 @@ export class AccountEntity implements Omit<Account, 'id' | 'role'> {
     required: false,
   })
   public role: RoleEntity;
-
-  public toDomainModel(): Account {
-    return new Account({
-      id: this._id.toString(),
-      email: this.email,
-      password: this.password,
-      role: this.role.toDomainModel(),
-    });
-  }
 }
 
 export const AccountSchema = SchemaFactory.createForClass(AccountEntity);
-AccountSchema.loadClass(AccountEntity); // https://mongoosejs.com/docs/guide.html#es6-classes

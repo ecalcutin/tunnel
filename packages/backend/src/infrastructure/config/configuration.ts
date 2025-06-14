@@ -2,6 +2,8 @@ import { type AppConfig } from './interfaces';
 
 export default (): AppConfig => {
   return {
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD!,
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL!,
     database: {
       DB_HOST: process.env.DB_HOST!,
       DB_PORT: process.env.DB_PORT!,

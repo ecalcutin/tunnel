@@ -1,2 +1,6 @@
-export { AccountEntity, AccountSchema } from './account.entity';
-export { RoleEntity, RoleSchema } from './role.entity';
+export {
+  AccountEntity,
+  AccountSchema,
+  type AccountDocument,
+} from './account.entity';
+export { RoleEntity, RoleSchema, type RoleDocument } from './role.entity';

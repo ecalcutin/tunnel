@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
 
+import { AppConfigModule } from 'infrastructure/config';
+
 import { AccountService, RoleService } from './use-cases';
+import { InitService } from './use-cases/init.service';
 
 @Module({
-  providers: [AccountService, RoleService],
+  imports: [AppConfigModule],
+  providers: [InitService, AccountService, RoleService],
   exports: [AccountService, RoleService],
 })
 export class AccountCoreModule {}

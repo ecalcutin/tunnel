@@ -1,7 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
-import { Role } from 'core/account/entities';
+import { Role } from 'core/account/models';
+
+export type RoleDocument = HydratedDocument<RoleEntity>;
 
 @Schema()
 export class RoleEntity implements Omit<Role, 'id'> {
@@ -12,23 +14,13 @@ export class RoleEntity implements Omit<Role, 'id'> {
     required: true,
     unique: true,
   })
-  readonly title: string;
+  readonly code: string;
 
   @Prop({
     type: String,
     required: true,
   })
   public description: string;
-
-  public toDomainModel() {
-    const role = new Role({
-      id: this._id.toString(),
-      title: this.title,
-      description: this.description,
-    });
-    return role;
-  }
 }
 
 export const RoleSchema = SchemaFactory.createForClass(RoleEntity);
-RoleSchema.loadClass(RoleEntity);

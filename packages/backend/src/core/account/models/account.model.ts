@@ -1,4 +1,4 @@
-import { Role } from './role.entity';
+import { Role } from './role.model';
 
 export class Account {
   public readonly id: string;
