@@ -15,7 +15,7 @@ export class AccountRepositoryMongoAdapter implements AccountRepositoryPort {
     private readonly model: Model<AccountEntity>,
   ) {}
 
-  async create(account: Account): Promise<Account> {
+  async create(account: Omit<Account, 'id'>): Promise<Account> {
     const entity = await new this.model({
       email: account.email,
       password: account.password,
@@ -24,6 +24,21 @@ export class AccountRepositoryMongoAdapter implements AccountRepositoryPort {
 
     await entity.populate(['role']);
     return this.toDomainModel(entity);
+  }
+
+  async getById(id: string): Promise<Account> {
+    const item = await this.model.findById(id).exec();
+    if (item) return this.toDomainModel(item);
+    throw new Error('Entity not found');
+  }
+
+  async deleteById(id: string): Promise<Account> {
+    const entity = await this.model.findByIdAndDelete(id).exec();
+    if (entity) {
+      return AccountDomainMapper.toDomainModel(entity);
+    } else {
+      throw new Error('Entity not found');
+    }
   }
 
   async find(query?: AccountQuery): Promise<Account[]> {
@@ -45,15 +60,6 @@ export class AccountRepositoryMongoAdapter implements AccountRepositoryPort {
       .exec();
     if (entity) return this.toDomainModel(entity);
     return entity;
-  }
-
-  async deleteById(id: string): Promise<Account> {
-    const entity = await this.model.findByIdAndDelete(id).exec();
-    if (entity) {
-      return AccountDomainMapper.toDomainModel(entity);
-    } else {
-      throw new Error('Entity not found');
-    }
   }
 
   public toDomainModel(entity: AccountDocument): Account {

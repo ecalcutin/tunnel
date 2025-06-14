@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 
 import { AccountQuery } from 'core/account/queries';
-import { AccountService } from 'core/account/use-cases';
+import { AccountService, CreateAccountUseCase } from 'core/account/use-cases';
 
 import { CreateAccountDto } from './dto';
 
@@ -18,11 +18,13 @@ import { CreateAccountDto } from './dto';
 export class AccountController {
   constructor(
     @Inject(AccountService) private readonly accountService: AccountService,
+    @Inject(CreateAccountUseCase)
+    private readonly createAccountUseCase: CreateAccountUseCase,
   ) {}
 
   @Post('/')
   async create(@Body() account: CreateAccountDto) {
-    return this.accountService.create(account);
+    return this.createAccountUseCase.execute(account);
   }
 
   @Get('/')

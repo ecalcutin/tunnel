@@ -6,6 +6,7 @@ import { Role, RoleRepositoryPort } from 'core/account';
 import { RoleQuery } from 'core/account/queries';
 
 import { RoleDocument, RoleEntity } from '../entities';
+import { RoleDomainMapper } from '../mappers';
 
 @Injectable()
 export class RoleRepositoryMongoAdapter implements RoleRepositoryPort {
@@ -14,13 +15,29 @@ export class RoleRepositoryMongoAdapter implements RoleRepositoryPort {
     private readonly model: Model<RoleEntity>,
   ) {}
 
-  public async create(role: Role): Promise<Role> {
+  public async create(role: Omit<Role, 'id'>): Promise<Role> {
     const item = await new this.model(role).save();
     return this.toDomainModel(item);
   }
 
-  public async find(): Promise<Role[]> {
-    const items = await this.model.find().exec();
+  async getById(id: string): Promise<Role> {
+    const item = await this.model.findById(id).exec();
+    if (item) return this.toDomainModel(item);
+    throw new Error('Entity not found');
+  }
+
+  async deleteById(id: string): Promise<Role> {
+    const item = await this.model.findByIdAndDelete(id);
+    if (item) return this.toDomainModel(item);
+    throw new Error('Entity not found');
+  }
+
+  public async find(query?: RoleQuery): Promise<Role[]> {
+    const items = await this.model
+      .find({
+        ...query,
+      })
+      .exec();
     return items.map(item => this.toDomainModel(item));
   }
 
@@ -33,11 +50,6 @@ export class RoleRepositoryMongoAdapter implements RoleRepositoryPort {
   }
 
   private toDomainModel(entity: RoleDocument): Role {
-    const { _id, ...rest } = entity.toJSON();
-    return new Role({
-      id: _id.toString(),
-      code: rest.code,
-      description: rest.description,
-    });
+    return RoleDomainMapper.toDomainModel(entity);
   }
 }

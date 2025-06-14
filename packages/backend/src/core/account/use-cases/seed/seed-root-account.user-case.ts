@@ -2,10 +2,10 @@ import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 
 import { AppConfigService } from 'infrastructure/config';
 
-import { AccountRepositoryPort, RoleRepositoryPort } from '../ports';
+import { AccountRepositoryPort, RoleRepositoryPort } from '../../ports';
 
 @Injectable()
-export class InitService implements OnModuleInit {
+export class SeedRootAccountUseCase implements OnModuleInit {
   constructor(
     @Inject(AppConfigService) private readonly appConfig: AppConfigService,
 
@@ -17,9 +17,11 @@ export class InitService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    let role = await this.roleRepository.findOne({ code: 'SUPER_ADMIN' });
-    if (!role) {
-      role = await this.roleRepository.create({
+    let superAdminRole = await this.roleRepository.findOne({
+      code: 'SUPER_ADMIN',
+    });
+    if (!superAdminRole) {
+      superAdminRole = await this.roleRepository.create({
         code: 'SUPER_ADMIN',
         description: 'Super admin',
       });
@@ -32,7 +34,7 @@ export class InitService implements OnModuleInit {
       account = await this.accountRepository.create({
         email: this.appConfig.ADMIN_EMAIL,
         password: this.appConfig.ADMIN_PASSWORD,
-        role: role,
+        role: superAdminRole,
       });
     }
   }

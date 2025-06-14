@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 
+import { CreateAccountDto } from 'application/account/dto';
+
 import { Account } from '../models';
 import { AccountRepositoryPort, RoleRepositoryPort } from '../ports';
-import { AccountQuery } from '../queries';
 
 @Injectable()
-export class AccountService {
+export class CreateAccountUseCase {
   constructor(
     @Inject(AccountRepositoryPort)
     private readonly accountRepository: AccountRepositoryPort,
@@ -14,11 +15,15 @@ export class AccountService {
     private readonly roleRepository: RoleRepositoryPort,
   ) {}
 
-  public async find(query?: AccountQuery): Promise<Account[]> {
-    return this.accountRepository.find(query);
-  }
+  public async execute(input: CreateAccountDto): Promise<Account> {
+    const role = await this.roleRepository.getById(input.roleId);
 
-  public async deleteById(id: string): Promise<Account> {
-    return this.accountRepository.deleteById(id);
+    const account = await this.accountRepository.create({
+      email: input.email,
+      password: input.password,
+      role: role,
+    });
+
+    return account;
   }
 }
