@@ -4,9 +4,10 @@ import { AppConfigModule } from 'infrastructure/config';
 
 import {
   SeedRootAccountUseCase,
-  AccountService,
-  RoleService,
   CreateAccountUseCase,
+  FindAccountsUseCase,
+  DeleteAccountByIdUseCase,
+  RoleService,
 } from './use-cases';
 
 @Module({
@@ -14,9 +15,15 @@ import {
   providers: [
     SeedRootAccountUseCase,
     CreateAccountUseCase,
-    AccountService,
+    FindAccountsUseCase,
+    DeleteAccountByIdUseCase,
     RoleService,
   ],
-  exports: [CreateAccountUseCase, AccountService, RoleService],
+  exports: [
+    CreateAccountUseCase,
+    FindAccountsUseCase,
+    DeleteAccountByIdUseCase,
+    RoleService,
+  ],
 })
 export class AccountCoreModule {}

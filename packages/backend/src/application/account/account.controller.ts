@@ -10,30 +10,39 @@ import {
 } from '@nestjs/common';
 
 import { AccountQuery } from 'core/account/queries';
-import { AccountService, CreateAccountUseCase } from 'core/account/use-cases';
+import {
+  CreateAccountUseCase,
+  FindAccountsUseCase,
+  DeleteAccountByIdUseCase,
+} from 'core/account/use-cases';
 
 import { CreateAccountDto } from './dto';
 
 @Controller('/accounts')
 export class AccountController {
   constructor(
-    @Inject(AccountService) private readonly accountService: AccountService,
     @Inject(CreateAccountUseCase)
-    private readonly createAccountUseCase: CreateAccountUseCase,
+    private readonly createAccount: CreateAccountUseCase,
+
+    @Inject(FindAccountsUseCase)
+    private readonly findAccounts: FindAccountsUseCase,
+
+    @Inject(DeleteAccountByIdUseCase)
+    private readonly deleteAccountUseCase: DeleteAccountByIdUseCase,
   ) {}
 
   @Post('/')
   async create(@Body() account: CreateAccountDto) {
-    return this.createAccountUseCase.execute(account);
+    return this.createAccount.execute(account);
   }
 
   @Get('/')
   async find(@Query() query: AccountQuery) {
-    return this.accountService.find(query);
+    return this.findAccounts.execute(query);
   }
 
   @Delete('/:id')
   async deleteById(@Param('id') id: string) {
-    return this.accountService.deleteById(id);
+    return this.deleteAccountUseCase.execute(id);
   }
 }
