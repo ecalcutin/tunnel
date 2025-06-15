@@ -10,7 +10,7 @@
     "outDir": "build",
     "paths": {
       "core/*": ["./core/*"],
-      "application/*": ["./application/*"],
+      "features/*": ["./features/*"],
       "infrastructure/*": ["./infrastructure/*"]
     }
   },
