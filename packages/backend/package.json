@@ -21,6 +21,7 @@
     "mongoose": "^8.15.1"
   },
   "devDependencies": {
+    "@types/node": "^24.0.1",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.20.2"
   }
