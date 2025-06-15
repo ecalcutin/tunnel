@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { Account } from '../models';
-import { AccountRepositoryPort } from '../ports/repositories';
-import { AccountQuery } from '../queries';
+import { Account } from '../../models';
+import { AccountRepositoryPort } from '../../ports/repositories';
+import { AccountQuery } from '../../queries';
 
 @Injectable()
 export class FindAccountsUseCase {

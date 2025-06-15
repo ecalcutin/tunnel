@@ -2,11 +2,11 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { CreateAccountDto } from 'features/account/application/dto';
 
-import { Account } from '../models';
+import { Account } from '../../models';
 import {
   AccountRepositoryPort,
   RoleRepositoryPort,
-} from '../ports/repositories';
+} from '../../ports/repositories';
 
 @Injectable()
 export class CreateAccountUseCase {

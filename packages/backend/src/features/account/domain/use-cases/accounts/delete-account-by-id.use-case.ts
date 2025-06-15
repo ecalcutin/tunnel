@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { Account } from '../models';
-import { AccountRepositoryPort } from '../ports/repositories';
+import { Account } from '../../models';
+import { AccountRepositoryPort } from '../../ports/repositories';
 
 @Injectable()
 export class DeleteAccountByIdUseCase {

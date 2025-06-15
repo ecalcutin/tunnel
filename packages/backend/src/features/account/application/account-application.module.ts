@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 
 import { AccountDomainModule } from 'features/account/domain';
 
-import { AccountController } from './account.controller';
-import { RolesController } from './roles.controller';
+import { AccountController } from './controllers/account.controller';
+import { RolesController } from './controllers/roles.controller';
 
 @Module({
   imports: [AccountDomainModule],

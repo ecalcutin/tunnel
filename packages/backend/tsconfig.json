@@ -9,7 +9,6 @@
     "baseUrl": "./src",
     "outDir": "build",
     "paths": {
-      "core/*": ["./core/*"],
       "features/*": ["./features/*"],
       "infrastructure/*": ["./infrastructure/*"]
     }

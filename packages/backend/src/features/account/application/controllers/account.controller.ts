@@ -16,7 +16,7 @@ import {
   DeleteAccountByIdUseCase,
 } from 'features/account/domain/use-cases';
 
-import { CreateAccountDto } from './dto';
+import { CreateAccountDto } from '../dto';
 
 @Controller('/accounts')
 export class AccountController {

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { AccountApplicationModule } from './application';
+import { AccountApplicationModule } from './application/account-application.module';
 
 @Module({
   imports: [AccountApplicationModule],

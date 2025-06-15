@@ -9,23 +9,32 @@ import {
   CreateAccountUseCase,
   FindAccountsUseCase,
   DeleteAccountByIdUseCase,
-  RoleService,
+  CreateRoleUseCase,
+  FindRolesUseCase,
+  DeleteRoleByIdUseCase,
 } from './use-cases';
 
 @Module({
   imports: [AppConfigModule, InfrastructureModule],
   providers: [
+    // Seed
     SeedRootAccountUseCase,
+    // Accounts
     CreateAccountUseCase,
     FindAccountsUseCase,
     DeleteAccountByIdUseCase,
-    RoleService,
+    // Roles
+    CreateRoleUseCase,
+    FindRolesUseCase,
+    DeleteRoleByIdUseCase,
   ],
   exports: [
     CreateAccountUseCase,
     FindAccountsUseCase,
     DeleteAccountByIdUseCase,
-    RoleService,
+    CreateRoleUseCase,
+    FindRolesUseCase,
+    DeleteRoleByIdUseCase,
   ],
 })
 export class AccountDomainModule {}
